@@ -1,0 +1,28 @@
+/**
+ * Clase Main para la ejecución del juego.
+ * 
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+
+class Main {
+    
+    /**
+    * Método principal que ejecuta los objetos utilizados
+    * y se encarga de destruirlos.
+    */
+   function void main() {
+        var PantallaInicial pantallaInicial;
+        var PantallaJuego pantallaJuego;
+        var EscenarioJuego escenario;
+        var int vidasInicial;
+        let pantallaInicial = PantallaInicial.new();
+        let pantallaJuego = PantallaJuego.new();
+        let vidasInicial = 10;
+        let escenario = EscenarioJuego.new(vidasInicial);
+        do pantallaInicial.dispose();
+        do pantallaJuego.dispose();
+        do escenario.dispose();
+        return;
+    }
+}

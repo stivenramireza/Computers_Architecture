@@ -1,0 +1,57 @@
+/**
+ * Clase Random para la generación de número aleatorios.
+ * Tomado de Connor McKay. Random Number Generator (2011).
+ *
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+class Random {
+	static int x;
+
+	/**
+	* Función que reciba un valor nuevo y lo envía.
+	* @param seed Valor nuevo.
+	*/
+	function void seed(int seed) {
+		let x = seed;
+		return;
+	}
+
+	/**
+	* Función que retorna a mod b y b debe ser positivo.
+	* @param a Valor entero.
+	* @param b Valor entero.
+	* @return a Valor con el resultado del módulo (a mod b).
+	*/
+	function int mod(int a, int b) {
+		if (a < 0) {
+			let a = -a;
+		}
+		while ((a + 1) > b) {
+			let a = a - b;
+		}
+		return a;
+	}
+
+	/**
+	* Función que retorna el siguiente número aleatorio. Puede ser positivo o negativo.
+	* @return x Valor entero con el siguiente número aleatorio.
+	*/
+	function int next() {
+		let x = 7919 + (17*x);
+		return x;
+	}
+
+	/**
+	* Función que retorna un valor aleatorio entre x (incluyéndose) y y (sin incluirse), éste
+	* último siendo mayor que x.
+	* @param x Valor entero.
+	* @param y Valor entero.
+	* @return random Valor aleatorio entre x y y.
+	*/
+	function int between(int x, int y) {
+		var int diff;
+		let diff = y - x;
+		return Random.mod(Random.next(), diff) + x;
+	}
+}

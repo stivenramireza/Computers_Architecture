@@ -1,0 +1,34 @@
+/**
+ * Clase EscenarioJuego donde se realizan los movimientos del juego.
+ * 
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+ class EscenarioJuego {
+     field int vidas;
+     field Cachipun cachipun;
+     field Cachipun jugador1, jugador2;
+
+     /**
+     * Constructor de la clase EscenarioJuego.
+     * @param vida Número de vidas de los jugadores.
+     */
+     constructor EscenarioJuego new(int vida) {
+         let vidas = vida;
+         let jugador1 = Cachipun.new("Jugador 1", vidas);
+         let jugador2 = Cachipun.new("Jugador 2", vidas);
+         do Cachipun.jugar(jugador1, jugador2);
+         return this;
+     }
+
+    /**
+     * Destructor de la clase EscenarioJuego.
+     */
+    method void dispose() {
+        do jugador1.dispose();
+        do jugador2.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }     
+
+ }

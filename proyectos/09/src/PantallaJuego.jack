@@ -1,0 +1,47 @@
+/**
+ * Clase PantallaJuego para mostrar dónde se ejecuta el juego.
+ * 
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+class PantallaJuego {
+    field int mostrar;
+
+    /**
+    * Constructor de la clase PantallaJuego.
+    */
+    constructor PantallaJuego new() {
+        let mostrar = 0;
+        do init();
+        do pintarJuego();
+        return this;
+    }
+
+    /**
+     * Inicializa las condiciones necesarias para la impresión del juego
+     */
+    method void init() {        
+        do Screen.clearScreen();
+        do Screen.setColor(true);
+        return;
+    }
+
+    /**
+     * Pinta el juego de acuerdo a las condiciones iniciales
+     */
+    method void pintarJuego() {
+        do Output.moveCursor(1, 15);
+        do Output.printString("Cachipun (Piedra, Papel o Tijera)");
+        do Output.moveCursor(10, 50);
+        do Screen.drawLine(255, 30, 255, 200);
+        return;
+    }
+
+    /**
+     * Destructor de la clase PantallaJuego
+     */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

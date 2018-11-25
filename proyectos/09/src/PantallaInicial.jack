@@ -1,0 +1,120 @@
+/**
+ * Clase PantallaInicial para la validación de la entrada al juego.
+ * 
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+class PantallaInicial {
+    field int a;
+
+    static String MENSAJE_SOLO_NUMEROS, MENSAJE_SOLO_0_1;
+    /**
+     * Constructor de la clase Random, inicializa las variables
+     * El valor de a está dado por el usuario
+     */
+    constructor PantallaInicial new() {
+        let MENSAJE_SOLO_NUMEROS = "> Por favor, ingrese solo numeros";
+        let MENSAJE_SOLO_0_1 = "> Por favor, ingrese solamente 0 o 1";
+        do imprimirPantallaInicial();
+        return this;
+    }
+
+    /**
+     * Método que imprime la pantalla inicial y pregunta por los digitos válidos
+     * para ingresar al juego.
+     */
+    method void imprimirPantallaInicial() {
+        var boolean valida;
+        let valida = false;
+        while (~valida) {
+            do Output.moveCursor(8, 15);
+            do Output.printString("Cachipun (Piedra, Papel o Tijera)");
+            do Output.moveCursor(12, 15);
+            do Output.printString("Digite [1] y [Enter] para iniciar");
+            do Output.moveCursor(14, 15);
+            do Output.printString("Digite [0] y [Enter] para terminar");
+            do Output.moveCursor(16, 30);
+            let a = Keyboard.readLine("");
+            if ((~(PantallaInicial.esBlanco(a))) & (PantallaInicial.esNumero(a)) 
+                & (PantallaInicial.validarEntrada(a)) & (Strings.equals(a, "1"))) {
+                let valida = true;
+            }
+            if ((~(PantallaInicial.esBlanco(a))) & (PantallaInicial.esNumero(a)) 
+                & (PantallaInicial.validarEntrada(a)) & (Strings.equals(a, "0"))) {
+                do Screen.clearScreen();
+                do Screen.setColor(true);
+                do Output.moveCursor(12, 19);
+                do Output.printString("Termina el juego");
+                do Sys.halt();
+            }
+            do Output.moveCursor(7, 20);
+            do Output.printString("          "); 
+        }
+        return;
+    }
+
+    /**
+    * Método que retorna true si la entrada está en blanco, de lo contrario retorna false.
+    * @param entrada Lo que ingresa el usuario por teclado.
+    * @return validar Valor true o false.
+    */
+    function boolean esBlanco(String entrada){
+        var boolean validar;
+        let validar = false;
+        if(Strings.equals(entrada, "") | Strings.equals(entrada, "null")){
+            let validar = true;
+        }else{
+            let validar = false;
+            do Output.moveCursor(20,5);
+			do Output.printString("> La entrada está vacía");
+        }
+        return validar;
+    }
+
+    /**
+    * Método que retorna true si la entrada es un número, de lo contrario retorna false.
+    * @param entrada Lo que ingresa el usuario por teclado.
+    * @return validar Valor true o false.
+    */
+    function boolean esNumero(String entrada){  
+            var boolean validar;
+            let validar = false;
+            if(Strings.equals(entrada, "0") | Strings.equals(entrada,"1") | Strings.equals(entrada,"2") | Strings.equals(entrada,"3") 
+            | Strings.equals(entrada,"4") | Strings.equals(entrada,"5") | Strings.equals(entrada,"6") | Strings.equals(entrada,"7") 
+            | Strings.equals(entrada, "8") | Strings.equals(entrada, "9")){
+                let validar = true;
+            }else{
+                let validar = false;
+                do Output.moveCursor(20,5);
+                do Output.printString(MENSAJE_SOLO_NUMEROS);
+            }
+		return validar;
+	}
+
+    /**
+    * Método que retorna false si la entrada no es un número, de lo contrario retorna true.
+    * @param entrada Lo que ingresa el usuario por teclado.
+    * @param mensaje Imprime el mensaje indicando que sólo puede ingresar números.
+    * @return boolean Valor true o false.
+    */
+    function boolean validarEntrada(String entrada){
+        var boolean validar;
+        let validar = false;
+		if((PantallaInicial.esNumero(entrada)) & (((Strings.equals(entrada, "0"))) | ((Strings.equals(entrada, "1"))))){
+            let validar = true;
+		}else{
+            let validar = false;
+            do Output.moveCursor(20,5);
+            do Output.printString(MENSAJE_SOLO_0_1);
+        }
+		return validar;
+	}
+
+    /**
+     * Destructor de la clase PantallaInicial
+     */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

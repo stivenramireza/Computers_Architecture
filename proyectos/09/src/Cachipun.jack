@@ -1,0 +1,313 @@
+/**
+ * Clase Cachipun para la creación de objetos de tipo Piedra, Papel o Tijera.
+ *
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+class Cachipun{
+     
+    static int PAPEL, PIEDRA, TIJERA;
+    field int turno;
+    field int vidas;
+    field boolean vivo;
+	field String miNombre;
+    static String MENSAJE_VIDAS;
+    field PantallaJuego pantallaJuego;
+    field EscenarioJuego juego;
+	
+    /**
+    * Constructor de la clase Cachipun.
+    * @param nombre Nombre del jugador.
+    * @param vidas Número de vidas del jugador.
+    */
+    constructor Cachipun new (String nombre, int vida){
+        let PIEDRA = 0;
+        let PAPEL = 1;
+        let TIJERA = 2;
+        let vidas = vida;
+        do reiniciar(vidas);
+        let miNombre = nombre;
+        let MENSAJE_VIDAS = "Ingrese el numero de vidas para el siguiente juego: ";
+        return this;
+    }
+
+    /**
+    * Método que retorna el número de vidas del jugador.
+    * @return vidas Número de vidas del jugador en cuestión.
+    */
+    method int getVidas(){
+        return vidas;
+    }
+
+    /**
+    * Método que retorna el turno del jugador para definir si es
+    * piedra papel o tijera.
+    * @return turno Número de turno del jugador en cuestión.
+    */
+    method int miTurno(){
+        let turno = Random.between(0, 3);
+        return turno;
+    }
+
+    /**
+    * Método que retorna el turno actual del jugador.
+    * @return turno Turno actual del jugador en cuestión.
+    */
+    method int turnoActual(){
+        return turno;
+    }
+
+    /**
+    * Método que permite saber si un jugador está vivo o no.
+    * @return vivo Valor true o false.
+    */
+    method boolean estoyVivo(){
+        return vivo;
+    }
+
+    /**
+    * Método que retorna el nombre del jugador.
+    */
+    method String miNombre() {
+        return miNombre;
+    }
+
+    /**
+    * Función que permite imprimir mensajes en pantalla.
+    * @param mensaje Es el texto que se ingresa como parámetro y que
+    * se usa para imprimir los diferentes mensajes.
+    */
+    function void mensaje(String mensaje) {
+        do Output.printString( mensaje );
+        return;
+    }
+
+    /**
+    * Método que resta vida al jugador que pierda un turno.
+    */
+    method void perdedor(){
+        let vidas = vidas - 1;
+        if(vidas = 0){
+            let vivo = false;
+        }
+        return;
+    }
+
+    /**
+    * Método que permite reiniciar las vidas una vez termine el primer juego.
+    * @param vidas Número de vidas del jugador.
+    */
+    method void reiniciar(int vidas){
+        let vidas = vidas;
+        let vivo = true;
+        return;
+    }
+
+    /**
+    * Función que recibe los estados de los 2 jugadores y valida quién fue el ganador del juego.
+    * @param estadoJ1 Estado del jugador 1.
+    * @param estadoJ2 Estado del jugador 2.
+    * @return int Valor entero indicando quién fue el ganador.
+    */
+    function int validarGanadorTurno(int estadoJ1, int estadoJ2) {
+		if ((estadoJ1 = PAPEL) & (estadoJ2 = PIEDRA)){
+			return 1;
+		} 
+		if ((estadoJ1 = PIEDRA) & (estadoJ2 = TIJERA)) {
+			return 1;
+		}
+		if ((estadoJ1 = TIJERA) & (estadoJ2 = PAPEL)){
+			return 1;
+		}
+		if ((estadoJ2 = PAPEL) & (estadoJ1 = PIEDRA)){
+			return 2;
+		}
+		if ((estadoJ2 = PIEDRA) & (estadoJ1 = TIJERA)){
+			return 2;
+		}
+		if((estadoJ2 = TIJERA) & (estadoJ1 = PAPEL)){
+			return 2;
+		}
+		return 0;
+    } 
+
+    /**
+    * Función que dibuja los jugadores 1 y 2 según el turno correspondiente.
+    * @param jugador1 Número que identifica al jugador 1.
+    * @param jugador2 Número que identifica al jugador 2.
+    */
+    function void dibujar(int jugador1, int jugador2) {
+        if (jugador1 = 0) {
+            do Figure.dibujarPiedraJ1();
+        }
+        if (jugador2 = 0) {
+            do Figure.dibujarPiedraJ2();
+        }
+        if (jugador1 = 1) {
+            do Figure.dibujarPapelJ1();
+        }
+        if (jugador2 = 1) {
+            do Figure.dibujarPapelJ2();
+        }
+        if (jugador1 = 2) {
+            do Figure.dibujarTijeraJ1();
+        }
+        if (jugador2 = 2) {
+            do Figure.dibujarTijeraJ2();
+        } 
+        return;
+    }
+
+    /**
+    * Función que muestra los resultados con la cantidad de vidas de cada jugador
+    * y el número de turno en el que se encuentran cada segundo en el sistema.
+    * @param vidasJ1 Número de vidas del jugador 1.
+    * @param vidasJ2 Número de vidas del jugador 2.
+    * @param contador Número del turno para los jugadores.
+    */
+    function void mostrarResultados(int vidasJ1, int vidasJ2, int contador){
+        do Output.moveCursor(3, 2);
+        do Output.printString("Vidas Jugador 1: ");
+        do Output.printInt(vidasJ1); 
+        do Output.moveCursor(3, 42);
+        do Output.printString("Vidas Jugador 2: ");
+        do Output.printInt(vidasJ2); 
+        do Output.moveCursor(20, 40);
+        do Output.printString("Turno: ");
+        do Output.printInt(contador);
+        do Sys.wait(1000);
+        return;
+    }
+
+    /**
+    * Función que permite mostrar el ganador por cada turno del juego.
+    * @param ganadorTurno Identifica el ganador del turno.
+    * @param contador Cuenta los turnos uno por uno.
+    */
+    function void mostrarGanadorTurno(int ganadorTurno, int contador){
+        do Output.moveCursor(20,5);
+        do Cachipun.mensaje("Ganador");
+        if(ganadorTurno = 0){
+            do Cachipun.mensaje(": Empate");
+        }
+        if(ganadorTurno = 1){
+            do Cachipun.mensaje(": Jugador 1");
+        }
+        if(ganadorTurno = 2){
+            do Cachipun.mensaje(": Jugador 2");
+        }
+        return;
+    }
+
+    /**
+    * Función que pone a jugar a los 2 jugadores de la clase Cachipun.
+    * @param jugador1 Objeto del jugador 1.
+    * @param jugador2 Objeto del jugador 2.
+    */
+    function void jugar(Cachipun jugador1, Cachipun jugador2){
+		var int ganadorTurno;
+        var int counter;
+        var PantallaJuego pantallaJuego;
+        var int turnoJ1, turnoJ2;
+        let counter = 1;
+        do Cachipun.mostrarResultados(jugador1.getVidas(), jugador2.getVidas(), counter);
+        do Screen.clearScreen();
+        let pantallaJuego = PantallaJuego.new();
+		while(jugador1.estoyVivo() & jugador2.estoyVivo()){
+                do jugador1.miTurno();
+                do jugador2.miTurno();
+                let turnoJ1 = jugador1.turnoActual();
+                let turnoJ2 = jugador2.turnoActual();
+                let ganadorTurno = Cachipun.validarGanadorTurno(jugador1.turnoActual(), jugador2.turnoActual());
+                do Cachipun.dibujar(turnoJ1, turnoJ2);
+                if(ganadorTurno = 0){
+                    do Cachipun.mostrarGanadorTurno(ganadorTurno, counter);        
+                }
+                if(ganadorTurno = 1){
+                    do jugador2.perdedor();
+                    do Cachipun.mostrarGanadorTurno(ganadorTurno, counter);
+                }
+                if(ganadorTurno = 2){
+                    do jugador1.perdedor();
+                    do Cachipun.mostrarGanadorTurno(ganadorTurno, counter);
+                }
+                do Cachipun.mostrarResultados(jugador1.getVidas(), jugador2.getVidas(), counter);
+                do Screen.clearScreen();
+                let counter = counter + 1;
+                let pantallaJuego = PantallaJuego.new();
+		}
+        do Screen.clearScreen();
+        do Screen.setColor(true);
+		if(jugador1.estoyVivo()){
+            do Output.moveCursor(8, 15);
+            do Output.printString("Fin del Juego -- Ganador: ");
+            do Output.printString(jugador1.miNombre());
+            do Cachipun.leerVidas();
+        }
+		if(jugador2.estoyVivo()){
+            do Output.moveCursor(8, 15);
+            do Output.printString("Fin del Juego -- Ganador: ");
+            do Output.printString(jugador2.miNombre());
+            do Cachipun.leerVidas();
+        }
+        return;
+	}
+
+    /**
+    * Función que lee las vidas que le ingresan por teclado y retorna un entero y
+    * permite reiniciar el juego.
+    */
+    function void leerVidas(){
+        var boolean valida;
+        var EscenarioJuego juego;
+        var PantallaJuego pantallaJuego;
+        var int a, nVidas;
+        let valida = false;
+        while(~valida){
+            do Output.moveCursor(12, 10);
+            do Output.printString("Digite [1] y [Enter] para jugar de nuevo");
+            do Output.moveCursor(14, 10);
+            do Output.printString("Digite [0] y [Enter] para terminar");
+            do Output.moveCursor(16, 30);
+            let a = Keyboard.readLine("");
+            if ((~(PantallaInicial.esBlanco(a))) & (PantallaInicial.esNumero(a)) 
+            & (PantallaInicial.validarEntrada(a)) & (Strings.equals(a, "1"))) {
+                let valida = true;
+                do Screen.clearScreen();
+                do Output.moveCursor(14, 5);
+                do Output.printString(MENSAJE_VIDAS);
+                do Output.moveCursor(16, 30);
+                let nVidas = Keyboard.readLine("");
+                if((PantallaInicial.validarEntrada(nVidas))){
+                    let valida = true;
+                    do Screen.clearScreen();
+                    do Screen.setColor(true);
+                    let pantallaJuego = PantallaJuego.new();
+                    let juego = EscenarioJuego.new(nVidas);
+                }
+            }
+            if ((~(PantallaInicial.esBlanco(a))) & (PantallaInicial.esNumero(a)) 
+            & (PantallaInicial.validarEntrada(a)) & (Strings.equals(a, "0"))) {
+                do Screen.clearScreen();
+                do Screen.setColor(true);
+                do Output.moveCursor(12, 19);
+                do Output.printString("Termina el juego");
+                do Sys.halt();
+            }
+            do Output.moveCursor(7, 20);
+            do Output.printString("          ");
+        } 
+        return;
+	}
+    
+    /**
+     * Destructor de la clase Cachipun.
+     */
+    method void dispose() {
+        do pantallaJuego.dispose();
+        do juego.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

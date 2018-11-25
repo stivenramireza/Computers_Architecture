@@ -1,0 +1,75 @@
+/**
+ * Clase Figure donde se dibuja la piedra, el papel y la tijera.
+ * 
+ * @author Stiven Ramírez Arango
+ * @version 1.0
+ */
+ class Figure{
+
+     /**
+     * Constructor de la clase Figure.
+     */
+     constructor Figure new(){
+         return this;
+     }
+
+    /**
+    * Función que dibuja la piedra del jugador 1.
+    */
+     function void dibujarPiedraJ1(){
+         do Screen.drawCircle(120,120,45);
+         return;
+     }
+
+    /**
+    * Función que dibuja la piedra del jugador 2.
+    */
+     function void dibujarPiedraJ2(){
+         do Screen.drawCircle(320,120,45);
+         return;
+     }
+
+    /**
+    * Función que dibuja el papel del jugador 1.
+    */
+     function void dibujarPapelJ1(){
+         do Screen.drawRectangle(80, 80, 180, 180);
+         return;
+     }
+
+    /**
+    * Función que dibuja el papel del jugador 2.
+    */
+     function void dibujarPapelJ2(){
+         do Screen.drawRectangle(290,80,380,180);
+         return;
+     }
+
+    /**
+    * Función que dibuja la tijera del jugador 1.
+    */
+     function void dibujarTijeraJ1(){
+         do Screen.drawLine(60,120,120,120);
+         do Screen.drawLine(120,120,180,100);
+         do Screen.drawLine(120,120,180,140);
+         return;
+     }
+
+    /**
+    * Función que dibuja la tijera del jugador 2.
+    */
+     function void dibujarTijeraJ2(){
+         do Screen.drawLine(290,120,350,120);
+         do Screen.drawLine(350,120,410,100);
+         do Screen.drawLine(350,120,410,140);
+         return;
+     }
+
+     /**
+     * Destructor de la clase Figure.
+     */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }     
+ }
